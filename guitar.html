@@ -82,14 +82,53 @@
     <div id="guitar-title">Guitar Club</div>
 
     <!-- Button connected to Python -->
-    <div id="show-info-btn" py-click="show_club_info">Slide and strum!</div>
+    <div id="show-info-btn">Slide and strum!</div>
 
     <div id="club-info-container"></div>
 
-    <!-- PyScript -->
-    <py-script src="main1.py"></py-script>
+<py-script>
+from pyscript import document, when
+
+# Dictionary with info about the guitar club
+club_info = {
+    "guitar": {
+        "description": "A friendly space to jam and learn new chords!",
+        "meeting_time": "Every Monday, 2:00 to 3:00 PM",
+        "location": "Room 221"
+    }
+}
+
+# Event handler for clicking the info button
+@when("click", "#show-info-btn")
+def show_club_info(e=None):
+    container = document.getElementById("club-info-container")
+    container.innerHTML = ""  # clear container before adding new info
+
+    info = club_info["guitar"]
+
+    # Build HTML content for club info
+    output = f"""
+        <div class="row">
+            <div class="col-md-6">
+                <div class="category-title">Description:</div>
+                <div class="club-description">{info['description']}</div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="category-title">Time:</div>
+                <div class="club-time">{info['meeting_time']}</div>
+
+                <div class="category-title mt-3">Location:</div>
+                <div class="club-location">{info['location']}</div>
+            </div>
+        </div>
+    """
+    container.innerHTML = output
+</py-script>
+
 
 </body>
 </html>
+
 
 
